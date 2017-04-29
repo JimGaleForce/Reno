@@ -1,0 +1,31 @@
+﻿#commandbar.reno {
+    display: block;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 50px;
+    background: #333;
+    z-index: 1000; 
+    padding-right: 12px;
+}
+
+.commandbutton.reno {
+    padding: 5px;
+    background: #333;
+    height: 50px;
+    width: 50px;
+    border: none;
+    color: #fff;
+    float: right;
+    font-family: 'Segoe MDL2 Assets';
+    font-size: 40px;
+}
+
+.commandbutton.reno:hover {
+    background-color: #444;
+}
+
+.hidden.reno {
+    display: none;
+}

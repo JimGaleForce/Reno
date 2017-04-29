@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Sample Reno Project</title>
+
+    <!-- Step 1/2: Include (an optional) AppMap to define what Reno abilities you want. -->
+    <script src="reno/appmap.js"></script>
+
+    <!-- Step 2/2: Include the renoloader script (locally or remotely) to inject/load the reno.js/reno.css when running on Windows -->
+    <script src="https://galeforce.azurewebsites.net/renoloader.js"></script>
+
+</head>
+<body>
+    <img id="logo" src="images/Reno.png" width="150" height="150"/>
+    <div>Normally, this page would be your main page on a website.</div>
+    <div>The package.appxmanifest (Application->Start Page) would point to the main page, and the (Content URIs->URI) would include your web site.</div>
+    <br/>
+    <div>The newly added toolbar should appear below, with share and pinning. The reno/appmap.js file defines anything beyond the default experience.</div>
+    <br/>
+    <div>For more information, see <a href="https://github.com/JimGaleForce/Reno">Reno on GitHub</a></div>
+</body>
+</html>

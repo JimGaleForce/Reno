@@ -1,0 +1,18 @@
+[
+  {
+    "outputFileName": "reno.js",
+    "inputFiles": [
+      "UWP/Helpers/TileHelper.js",
+      "UWP/Utils.js",
+      "UWP/Activity.js",
+      "UWP/AppInfo.js",
+      "UWP/AppBarCommand.js",
+      "UWP/AppBar.js",
+      "UWP/AppTile.js",
+      "UWP/ShareTarget.js",
+      "UWP/Speech.js",
+      "UWP/Reno.js"
+    ],
+    "sourceMap": true
+  }
+]
