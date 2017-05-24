@@ -457,6 +457,7 @@ var RenoLib;
                             }
                         }
                         else if (stretch === 'Fill') {
+                            //is the default code
                         }
                     };
                     draw = function () { return ctx.drawImage(element, x, y, width, height); };
@@ -643,11 +644,16 @@ var RenoLib;
     })(ActivityType = RenoLib.ActivityType || (RenoLib.ActivityType = {}));
 })(RenoLib || (RenoLib = {}));
 //# sourceMappingURL=Activity.js.map
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -942,11 +948,16 @@ var RenoLib;
     RenoLib.AppBarCommand = AppBarCommand;
 })(RenoLib || (RenoLib = {}));
 //# sourceMappingURL=AppBarCommand.js.map
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -1122,11 +1133,16 @@ var RenoLib;
     RenoLib.AppBar = AppBar;
 })(RenoLib || (RenoLib = {}));
 //# sourceMappingURL=AppBar.js.map
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var RenoLib;
 (function (RenoLib) {
     var AppTile = (function (_super) {
@@ -1198,11 +1214,16 @@ var RenoLib;
     RenoLib.AppTile = AppTile;
 })(RenoLib || (RenoLib = {}));
 //# sourceMappingURL=AppTile.js.map
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var RenoLib;
 (function (RenoLib) {
     var ShareTarget = (function (_super) {
@@ -1236,11 +1257,16 @@ var RenoLib;
 })(RenoLib || (RenoLib = {}));
 //# sourceMappingURL=ShareTarget.js.map
 // FILE IN PROGRESS
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var RenoLib;
 (function (RenoLib) {
     var Speech = (function (_super) {
@@ -1289,6 +1315,7 @@ var RenoLib;
             }
             //this.recognizer.continuousRecognitionSession.addEventListener('resultgenerated', (args) => this.onSpeechRecognizerResultGenerated(args), false);
             if (!core) {
+                //this.refreshRecognition(true);
             }
             //this.recognizer.addEventListener('statechanged', (args) => this.onSpeechRecognizerStateChanged(args), false);
             // Handle continuous recognition events. Completed fires when various error states occur or the session otherwise ends.
@@ -1426,6 +1453,8 @@ var RenoLib;
             if (eventInfo.detail[0].kind === Windows.ApplicationModel.Activation.ActivationKind.shareTarget) {
                 var shareTarget = this.abilities.find(function (a) { return a.type === RenoLib.ActivityType.ShareTarget; });
                 if (shareTarget) {
+                    //todo: fix
+                    //Windows.UI.Core.CoreDispatcher.call(() => shareTarget.shareReady(eventInfo.detail[0].shareOperation));
                 }
             }
             if (eventInfo.detail[0].kind === Windows.ApplicationModel.Activation.ActivationKind.launch) {
