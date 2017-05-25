@@ -160,7 +160,8 @@ var RenoLib;
         DebugType[DebugType["none"] = 0] = "none";
         DebugType[DebugType["log"] = 1] = "log";
         DebugType[DebugType["debug"] = 2] = "debug";
-        DebugType[DebugType["error"] = 3] = "error";
+        DebugType[DebugType["warning"] = 3] = "warning";
+        DebugType[DebugType["error"] = 4] = "error";
     })(DebugType = RenoLib.DebugType || (RenoLib.DebugType = {}));
     var EvalType;
     (function (EvalType) {
@@ -192,6 +193,9 @@ var RenoLib;
         };
         Utils.error = function (msg, e) {
             Utils.debug(msg, DebugType.error, e);
+        };
+        Utils.warning = function (msg) {
+            Utils.debug(msg, DebugType.warning);
         };
         Utils.debug = function (msg, debugType, e) {
             if (debugType === void 0) { debugType = DebugType.debug; }
@@ -502,22 +506,30 @@ var RenoLib;
         Utils.Retrieve = function (url) {
             var _this = this;
             var promise = new Promise(function (resolve, reject) { return __awaiter(_this, void 0, void 0, function () {
-                var result;
+                var result, e_2;
                 return __generator(this, function (_a) {
                     switch (_a.label) {
                         case 0:
-                            if (!(typeof (window.RenoUtilities) !== 'undefined')) return [3 /*break*/, 2];
+                            if (!(typeof (window.RenoUtilities) !== 'undefined')) return [3 /*break*/, 5];
                             Utils.debug('about to Retrieve(' + url + ')');
-                            return [4 /*yield*/, window.RenoUtilities.Utils.getUrlAsync(url)];
+                            _a.label = 1;
                         case 1:
+                            _a.trys.push([1, 3, , 4]);
+                            return [4 /*yield*/, window.RenoUtilities.Utils.getUrlAsync(url)];
+                        case 2:
                             result = _a.sent();
                             Utils.debug('got it:' + result);
                             resolve(result);
-                            return [3 /*break*/, 3];
-                        case 2:
-                            Utils.debug('retrieve-unresolved!');
-                            _a.label = 3;
-                        case 3: return [2 /*return*/];
+                            return [3 /*break*/, 4];
+                        case 3:
+                            e_2 = _a.sent();
+                            Utils.error("Unable to call RenoUtilities", e_2);
+                            return [3 /*break*/, 4];
+                        case 4: return [3 /*break*/, 6];
+                        case 5:
+                            Utils.warning('RenoUtilities is undefined (may need to include the project reference and rebuild).');
+                            _a.label = 6;
+                        case 6: return [2 /*return*/];
                     }
                 });
             }); });
@@ -1466,6 +1478,21 @@ var RenoLib;
                     document.addEventListener('RenoActivate', function () { document.location.href = args; });
                     document.location.href = args;
                     RenoLib.Utils.debug('launch-navd:' + args);
+                }
+            }
+            if (eventInfo.detail[0].kind === Windows.ApplicationModel.Activation.ActivationKind.protocol) {
+                //tile launch
+                if (eventInfo && eventInfo.detail && eventInfo.detail[0] && eventInfo.detail[0].uri) {
+                    var args = eventInfo.detail[0].uri.rawUri;
+                    RenoLib.Utils.debug('protocol-args:' + args);
+                    var index = args.indexOf('://');
+                    if (index > -1) {
+                        RenoLib.Utils.debug('protocol-nav:' + args);
+                        var hostindex = document.location.href.indexOf('://');
+                        document.addEventListener('RenoActivate', function () { document.location.href = args; });
+                        document.location.href = document.location.href.substr(0, hostindex) + args.substr(index);
+                        RenoLib.Utils.debug('protocol-navd:' + args);
+                    }
                 }
             }
         };

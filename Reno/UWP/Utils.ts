@@ -3,6 +3,7 @@
         none,
         log,
         debug,
+        warning,
         error
     }
 
@@ -37,6 +38,10 @@
 
         static error(msg: string, e: any) {
             Utils.debug(msg, DebugType.error, e);
+        }
+
+        static warning(msg: string) {
+            Utils.debug(msg, DebugType.warning);
         }
 
         static debug(msg: string, debugType: DebugType = DebugType.debug, e: any = null) {
@@ -378,11 +383,15 @@
             var promise = new Promise(async (resolve, reject) => {
                 if (typeof ((window as any).RenoUtilities) !== 'undefined') {
                     Utils.debug('about to Retrieve(' + url + ')');
-                    var result = await (window as any).RenoUtilities.Utils.getUrlAsync(url);
-                    Utils.debug('got it:' + result);
-                    resolve(result);
+                    try {
+                        var result = await (window as any).RenoUtilities.Utils.getUrlAsync(url);
+                        Utils.debug('got it:' + result);
+                        resolve(result);
+                    } catch (e) {
+                        Utils.error("Unable to call RenoUtilities", e);
+                    } 
                 } else {
-                    Utils.debug('retrieve-unresolved!');
+                    Utils.warning('RenoUtilities is undefined (may need to include the project reference and rebuild).');
                 }
             });
 

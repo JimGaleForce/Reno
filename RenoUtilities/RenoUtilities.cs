@@ -18,6 +18,11 @@ namespace RenoUtilities
             m_dispatcher = CoreWindow.GetForCurrentThread().Dispatcher;
         }
 
+        public static string NonAsyncTest()
+        {
+            return "123";
+        }
+
         public static IAsyncOperation<string> GetUrlToLocalAsync(string url, string local)
         {
             Func<byte[], Task<string>> suffix = async data =>
