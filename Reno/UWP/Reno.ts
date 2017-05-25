@@ -77,6 +77,24 @@ namespace RenoLib {
                     Utils.debug('launch-navd:' + args);
                 }
             }
+
+            if (eventInfo.detail[0].kind === Windows.ApplicationModel.Activation.ActivationKind.protocol) {
+                //tile launch
+                if (eventInfo && eventInfo.detail && eventInfo.detail[0] && eventInfo.detail[0].uri) {
+                    var args = eventInfo.detail[0].uri.rawUri;
+                    Utils.debug('protocol-args:' + args);
+                    var index = args.indexOf('://');
+                    if (index > -1) {
+                        Utils.debug('protocol-nav:' + args);
+
+                        var hostindex = document.location.href.indexOf('://');
+
+                        document.addEventListener('RenoActivate', () => { document.location.href = args; });
+                        document.location.href = document.location.href.substr(0, hostindex) + args.substr(index);
+                        Utils.debug('protocol-navd:' + args);
+                    }
+                }
+            }
         }
 
         async refresh() {
