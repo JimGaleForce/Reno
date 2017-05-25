@@ -73,6 +73,8 @@ There's many more options including specifying the code to execute for commands 
 
 NOTE: If you use the remote location for grabbing renoloader or an appmap, you will need to add those urls to your content-uris in the App to allow loading of that javascript.
 
+NOTE 2: When using an AppTile (rss or url retrieval), you need to include the RenoUtilities project in your PWA references.
+
 Once your Progressive Web App runs, and grabs the web site including the renoloader.js and optional AppMap, you should see the OS features light up.
 <hr/>
 **TL;DR:**
