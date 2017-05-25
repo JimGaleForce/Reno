@@ -87,3 +87,5 @@ Step 1: Add this loader file to your website:
 ```
 
 Step 2: Optionally add an options json data (called AppMap), as shown above, to turn on/off or override features. 
+
+More info about the AppMap located [here](AppMap.MD).
