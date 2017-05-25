@@ -6,7 +6,7 @@ Project Reno is a very lightweight javascript library for web developers which, 
 
 > What does that mean?
 
-Web developers and sites can add a single js file. When their web site is seen from a web app (Hosted Web App, Progressive Web App) running on an OS, like Windows, some features will automatically light up. Some features include an app bar (sharing, pinning), live tile updates and hot linking directly to a page. Some coming-soon features include speech. 
+Web developers and sites can add a single js file. When their web content is running as an app(Hosted Web App, Progressive Web App) features will automatically light up. Right now this only happens on Windows 10 (that is where the APIs are!) but later we will add support for other platforms as well. Features include an app bar (sharing, pinning), live tile updates and hot linking directly to a page. Some coming-soon features include speech. 
 
 The best part is, no content changes have to be done to the web site (other than the library inclusion and options). And, the developer can turn on or off features, as well as include specific overrides, from hiding the sharing icon to complete new app bar manually added to the site. The developer can dial up or down the whole experience.
 
@@ -16,7 +16,7 @@ Some OS features have been shown to increase engagement by 50%-100%!  This libra
 
 > Ok, how to I start?
 
-**Step #0:** First, you need a Progressive Web App pointed to your website. This is really easy, once you have the tools installed. Focusing on Windows, having Windows 10 and Visual Studio 2017, create a Hosted Web App and add your starting url as well as the securely accepted url pattern. Go here for more info: [http://preview.pwabuilder.com/generator](http://preview.pwabuilder.com/generator)
+**Step #0:** First, you need a web site that is ready to be moved to a Progressive Web App (PWA). You can find out what you need [here](http://docs.pwabuilder.com/whatPWA/pwa-min-requirements/). You've probably already done all the hard work, so to generate a manifest and get a service worker, head over to [pwabuilder.com](https://www.pwabuilder.com). If your on Windows 10, you can then get a debug version of your PWA App to test out all these cool features (they only work in the PWA App as the APIs are not in the browser).
 
 Next, in order to use Project Reno features, add a script tag to your master page (or all pages you want to light up). You can choose to host the files locally, or point to a cdn. The benefit of pointing to the latest on a cdn is that any new features and any bug fixes would be automatically referenced in your app. The benefit of downloading and including the library is not having an additional dependency, and locking in your features as-is.
 
