@@ -28,8 +28,13 @@ namespace RenoLib {
         static Load(appMapSimple: any) {
             try {
                 var reno = (window as any).Reno = new Reno();
-                reno.addAppInfo(appMapSimple);
-                reno.addAbilities(appMapSimple.abilities);
+                if (appMapSimple) {
+                    reno.addAppInfo(appMapSimple);
+                    if (appMapSimple.abilities) {
+                        reno.addAbilities(appMapSimple.abilities);
+                    }
+                }
+
                 reno.activate();
                 return true;
             } catch (e) {
