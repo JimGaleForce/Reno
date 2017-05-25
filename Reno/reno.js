@@ -1436,8 +1436,12 @@ var RenoLib;
         Reno.Load = function (appMapSimple) {
             try {
                 var reno = window.Reno = new Reno();
-                reno.addAppInfo(appMapSimple);
-                reno.addAbilities(appMapSimple.abilities);
+                if (appMapSimple) {
+                    reno.addAppInfo(appMapSimple);
+                    if (appMapSimple.abilities) {
+                        reno.addAbilities(appMapSimple.abilities);
+                    }
+                }
                 reno.activate();
                 return true;
             }

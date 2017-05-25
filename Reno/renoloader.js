@@ -39,7 +39,21 @@ if (window.Windows) {
             if (typeof(window.AppMap) === 'undefined') {
                 window.AppMap = {
                     abilities: {
-                        appBar: false
+                        appBar: {
+                            keepDefaultCommands: true,
+                            commands: [
+                                {
+                                    id: 'PinCommand',
+                                    text: document.title
+                                },
+                                {
+                                    id: 'ShareCommand',
+                                    options: {
+                                        text: 'Check this out... ' + document.location.href
+                                    }
+                                }
+                            ]
+                        }
                     }
                 };
             }
