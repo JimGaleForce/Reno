@@ -30,12 +30,12 @@ namespace RenoLib {
                 var reno = (window as any).Reno = new Reno();
 
                 if (Utils.isNotFalse(appMapSimple)) {
-                    var appMapSimple2 = typeof (appMapSimple) === 'object' ? appMapSimple : {};
-                    reno.addAppInfo(appMapSimple2);
-                    if (Utils.isNotFalse(appMapSimple2.abilities)) {
-                        appMapSimple2.abilities = typeof (appMapSimple2.abilities) === 'object' ? appMapSimple2.abilities : {};
+                    appMapSimple = typeof (appMapSimple) === 'object' ? appMapSimple : {};
+                    reno.addAppInfo(appMapSimple);
+                    if (Utils.isNotFalse(appMapSimple.abilities)) {
+                        appMapSimple.abilities = typeof (appMapSimple.abilities) === 'object' ? appMapSimple.abilities : Reno._defaultAbilities();
 
-                        reno.addAbilities(appMapSimple2.abilities);
+                        reno.addAbilities(appMapSimple.abilities);
                     }
                 }
 
@@ -116,7 +116,7 @@ namespace RenoLib {
         addAbilities(abilitiesX: any) {
             this.abilities = new Array<Activity>();
 
-            let abilities2 = this._defaultAbilities() as any;
+            let abilities2 = Reno._defaultAbilities() as any;
             if (typeof abilitiesX === 'object') {
                 abilities2 = abilitiesX;
             }
@@ -135,7 +135,7 @@ namespace RenoLib {
             }
         }
 
-        _defaultAbilities() {
+        static _defaultAbilities() {
             return {
                 appBar: true
             }

@@ -14,7 +14,7 @@ if (window.Windows) {
 
     var js = document.createElement("script");
     js.type = "text/javascript";
-    if (window.AppMap && window.AppMap.debug) {
+    if ((window.AppMap && window.AppMap.debug) || window.AppMapDebug) {
         js.src = "https://galeforce.azurewebsites.net/reno.js";
     } else {
         js.src = "https://galeforce.azurewebsites.net/reno.min.js";
