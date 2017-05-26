@@ -627,6 +627,15 @@ var RenoLib;
             }
             Windows.ApplicationModel.DataTransfer.DataTransferManager.showShareUI();
         };
+        Utils.defaultToEmpty = function (value) {
+            return (typeof value === 'boolean' && value) ? {} : value;
+        };
+        Utils.isNotFalse = function (value) {
+            return (typeof value !== 'boolean' || value);
+        };
+        Utils.requireObject = function (value) {
+            return (typeof value === 'object') ? value : {};
+        };
         return Utils;
     }());
     Utils.isDebugging = false;
@@ -1436,9 +1445,11 @@ var RenoLib;
         Reno.Load = function (appMapSimple) {
             try {
                 var reno = window.Reno = new Reno();
-                if (appMapSimple) {
+                if (RenoLib.Utils.isNotFalse(appMapSimple)) {
+                    appMapSimple = typeof (appMapSimple) === 'object' ? appMapSimple : {};
                     reno.addAppInfo(appMapSimple);
-                    if (appMapSimple.abilities) {
+                    if (RenoLib.Utils.isNotFalse(appMapSimple.abilities)) {
+                        appMapSimple.abilities = typeof (appMapSimple.abilities) === 'object' ? appMapSimple.abilities : Reno._defaultAbilities();
                         reno.addAbilities(appMapSimple.abilities);
                     }
                 }
@@ -1512,21 +1523,32 @@ var RenoLib;
             });
         };
         //client adding abilities (appBar, appTile, etc)
-        Reno.prototype.addAbilities = function (abilities) {
+        Reno.prototype.addAbilities = function (abilitiesX) {
             this.abilities = new Array();
-            if (abilities.appBar) {
-                this.abilities.push(new RenoLib.AppBar(abilities.appBar));
+            var abilities2 = Reno._defaultAbilities();
+            if (typeof abilitiesX === 'object') {
+                abilities2 = abilitiesX;
             }
-            if (abilities.appTile) {
-                this.abilities.push(new RenoLib.AppTile(abilities.appTile));
+            if (abilities2.appBar) {
+                console.debug('a1');
+                this.abilities.push(new RenoLib.AppBar(RenoLib.Utils.defaultToEmpty(abilities2.appBar)));
             }
-            if (abilities.speech) {
-                this.abilities.push(new RenoLib.Speech(abilities.speech));
+            if (abilities2.appTile) {
+                console.debug('a2');
+                this.abilities.push(new RenoLib.AppTile(RenoLib.Utils.defaultToEmpty(abilities2.appTile)));
+            }
+            if (abilities2.speech) {
+                console.debug('a3');
+                this.abilities.push(new RenoLib.Speech(RenoLib.Utils.defaultToEmpty(abilities2.speech)));
             }
         };
+        Reno._defaultAbilities = function () {
+            return {
+                appBar: true
+            };
+        };
         Reno.prototype.addAppInfo = function (appInfo) {
-            this.appInfo = new RenoLib.AppInfo(appInfo);
-            ;
+            this.appInfo = new RenoLib.AppInfo(RenoLib.Utils.defaultToEmpty(appInfo));
             if (this.appInfo.isDebugging) {
                 RenoLib.Utils.isDebugging = this.appInfo.isDebugging;
             }

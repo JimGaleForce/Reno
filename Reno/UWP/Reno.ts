@@ -28,9 +28,13 @@ namespace RenoLib {
         static Load(appMapSimple: any) {
             try {
                 var reno = (window as any).Reno = new Reno();
-                if (appMapSimple) {
+
+                if (Utils.isNotFalse(appMapSimple)) {
+                    appMapSimple = typeof (appMapSimple) === 'object' ? appMapSimple : {};
                     reno.addAppInfo(appMapSimple);
-                    if (appMapSimple.abilities) {
+                    if (Utils.isNotFalse(appMapSimple.abilities)) {
+                        appMapSimple.abilities = typeof (appMapSimple.abilities) === 'object' ? appMapSimple.abilities : Reno._defaultAbilities();
+
                         reno.addAbilities(appMapSimple.abilities);
                     }
                 }
@@ -109,21 +113,36 @@ namespace RenoLib {
         }
 
         //client adding abilities (appBar, appTile, etc)
-        addAbilities(abilities: any) {
+        addAbilities(abilitiesX: any) {
             this.abilities = new Array<Activity>();
-            if (abilities.appBar) {
-                this.abilities.push(new AppBar(abilities.appBar));
+
+            let abilities2 = Reno._defaultAbilities() as any;
+            if (typeof abilitiesX === 'object') {
+                abilities2 = abilitiesX;
             }
-            if (abilities.appTile) {
-                this.abilities.push(new AppTile(abilities.appTile));
+
+            if (abilities2.appBar) {
+                console.debug('a1');
+                this.abilities.push(new AppBar(Utils.defaultToEmpty(abilities2.appBar)));
             }
-            if (abilities.speech) {
-                this.abilities.push(new Speech(abilities.speech));
+            if (abilities2.appTile) {
+                console.debug('a2');
+                this.abilities.push(new AppTile(Utils.defaultToEmpty(abilities2.appTile)));
+            }
+            if (abilities2.speech) {
+                console.debug('a3');
+                this.abilities.push(new Speech(Utils.defaultToEmpty(abilities2.speech)));
+            }
+        }
+
+        static _defaultAbilities() {
+            return {
+                appBar: true
             }
         }
 
         addAppInfo(appInfo: any) {
-            this.appInfo = new AppInfo(appInfo);;
+            this.appInfo = new AppInfo(Utils.defaultToEmpty(appInfo));
 
             if (this.appInfo.isDebugging) {
                 RenoLib.Utils.isDebugging = this.appInfo.isDebugging;

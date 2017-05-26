@@ -500,5 +500,17 @@
 
             Windows.ApplicationModel.DataTransfer.DataTransferManager.showShareUI();
         }
+
+        static defaultToEmpty(value: any) {
+            return (typeof value === 'boolean' && value) ? {} : value;
+        }
+
+        static isNotFalse(value: any) {
+            return (typeof value !== 'boolean' || value);
+        }
+
+        static requireObject(value: any) {
+            return (typeof value === 'object') ? value : {};
+        }
     }
 }

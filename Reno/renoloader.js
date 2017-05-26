@@ -14,7 +14,7 @@ if (window.Windows) {
 
     var js = document.createElement("script");
     js.type = "text/javascript";
-    if (window.AppMap && window.AppMap.debug) {
+    if ((window.AppMap && window.AppMap.debug) || window.AppMapDebug) {
         js.src = "https://galeforce.azurewebsites.net/reno.js";
     } else {
         js.src = "https://galeforce.azurewebsites.net/reno.min.js";
@@ -37,25 +37,7 @@ if (window.Windows) {
             }
 
             if (typeof(window.AppMap) === 'undefined') {
-                window.AppMap = {
-                    abilities: {
-                        appBar: {
-                            keepDefaultCommands: true,
-                            commands: [
-                                {
-                                    id: 'PinCommand',
-                                    text: document.title
-                                },
-                                {
-                                    id: 'ShareCommand',
-                                    options: {
-                                        text: 'Check this out... ' + document.location.href
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                };
+                window.AppMap = {};
             }
 
             if (!window.AppMapLoading && typeof (RenoLib) !== "undefined" && typeof (window.AppMap) !== "undefined") {
