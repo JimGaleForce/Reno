@@ -280,8 +280,8 @@
                     var element = Utils.getElement(locator);
 
                     if (!element) {
-                        Utils.debug('no logo/image found: ' + info.locator);
-                        reject();
+                        Utils.debug('no logo/image found: ' + info.locator + ' defaulting to blank');
+                        resolve('');
                         return null;
                     }
 
