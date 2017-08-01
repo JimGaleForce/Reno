@@ -37,11 +37,12 @@
         }
 
         async create() {
-            Utils.debug('appBar-creating');
             var cmdBarPreexists = this.elementId !== null && this.elementId !== '';
             var cmdBar = cmdBarPreexists ? document.getElementById(this.elementId) : document.createElement('div');
-            cmdBar.className = 'reno';
-            cmdBar.id = 'commandbar';
+
+            Utils.debug('appBar-creating '+(cmdBarPreexists ? 'existing: '+this.elementId : 'new'));
+            cmdBar.className += ' reno';
+            cmdBar.id = cmdBarPreexists ? this.elementId : 'commandbar';
             this.buttons = new Array<AppBarCommand>();
 
             for (var i = 0; i < this.commands.length; i++) {
@@ -58,15 +59,14 @@
                     command = new AppBarCommand(this.commands[i]);
                     this.buttons.push(command);
 
-                    let existingButton = document.querySelector("commandbar " + command.id) as HTMLButtonElement;
+                    let existingButton = document.querySelector("#" + cmdBar.id + " #" + command.id) as HTMLButtonElement;
 
                     let button = existingButton || document.createElement('button');
-                    button.className = 'commandbutton reno';
-                    button.textContent = command.icon;
-                    button.id = command.id;
                     button.onclick = (sender) => { command.command(sender, command, this, Reno.instance); };
-
                     if (!existingButton) {
+                        button.className = 'commandbutton reno';
+                        button.textContent = command.icon;
+                        button.id = command.id;
                         cmdBar.appendChild(button);
                     }
                 } else {

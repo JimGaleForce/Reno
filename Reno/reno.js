@@ -461,6 +461,7 @@ var RenoLib;
                             }
                         }
                         else if (stretch === 'Fill') {
+                            //is the default code
                         }
                     };
                     draw = function () { return ctx.drawImage(element, x, y, width, height); };
@@ -664,11 +665,16 @@ var RenoLib;
     })(ActivityType = RenoLib.ActivityType || (RenoLib.ActivityType = {}));
 })(RenoLib || (RenoLib = {}));
 //# sourceMappingURL=Activity.js.map
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -963,11 +969,16 @@ var RenoLib;
     RenoLib.AppBarCommand = AppBarCommand;
 })(RenoLib || (RenoLib = {}));
 //# sourceMappingURL=AppBarCommand.js.map
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -1018,6 +1029,7 @@ var RenoLib;
             var def = this._default();
             this.show = RenoLib.Utils.default(appBar.show, def.appBar.show, true);
             this.commands = RenoLib.Utils.default(appBar.commands, def.appBar.commands, []);
+            this.elementId = RenoLib.Utils.default(appBar.elementId, null);
             if (appBar.commands && appBar.keepDefaultCommands) {
                 for (var i = 0; i < def.appBar.commands.length; i++) {
                     this.commands.splice(i, 0, def.appBar.commands[i]);
@@ -1045,14 +1057,15 @@ var RenoLib;
         AppBar.prototype.create = function () {
             return __awaiter(this, void 0, void 0, function () {
                 var _this = this;
-                var cmdBar, _loop_1, this_1, i;
+                var cmdBarPreexists, cmdBar, _loop_1, this_1, i;
                 return __generator(this, function (_a) {
                     switch (_a.label) {
                         case 0:
-                            RenoLib.Utils.debug('appBar-creating');
-                            cmdBar = document.createElement('div');
-                            cmdBar.className = 'reno';
-                            cmdBar.id = 'commandbar';
+                            cmdBarPreexists = this.elementId !== null && this.elementId !== '';
+                            cmdBar = cmdBarPreexists ? document.getElementById(this.elementId) : document.createElement('div');
+                            RenoLib.Utils.debug('appBar-creating ' + (cmdBarPreexists ? 'existing: ' + this.elementId : 'new'));
+                            cmdBar.className += ' reno';
+                            cmdBar.id = cmdBarPreexists ? this.elementId : 'commandbar';
                             this.buttons = new Array();
                             _loop_1 = function () {
                                 var command = null;
@@ -1066,12 +1079,15 @@ var RenoLib;
                                     RenoLib.Utils.debug('adding new cmd:' + this_1.commands[i].id);
                                     command = new RenoLib.AppBarCommand(this_1.commands[i]);
                                     this_1.buttons.push(command);
-                                    var button = document.createElement('button');
-                                    button.className = 'commandbutton reno';
-                                    button.textContent = command.icon;
-                                    button.id = command.id;
+                                    var existingButton = document.querySelector("#" + cmdBar.id + " #" + command.id);
+                                    var button = existingButton || document.createElement('button');
                                     button.onclick = function (sender) { command.command(sender, command, _this, RenoLib.Reno.instance); };
-                                    cmdBar.appendChild(button);
+                                    if (!existingButton) {
+                                        button.className = 'commandbutton reno';
+                                        button.textContent = command.icon;
+                                        button.id = command.id;
+                                        cmdBar.appendChild(button);
+                                    }
                                 }
                                 else {
                                     RenoLib.Utils.debug('adopting from existing cmd:' + this_1.commands[i].id);
@@ -1082,7 +1098,9 @@ var RenoLib;
                             for (i = 0; i < this.commands.length; i++) {
                                 _loop_1();
                             }
-                            document.body.appendChild(cmdBar);
+                            if (!cmdBarPreexists) {
+                                document.body.appendChild(cmdBar);
+                            }
                             return [4 /*yield*/, this.refresh()];
                         case 1:
                             _a.sent();
@@ -1143,11 +1161,16 @@ var RenoLib;
     RenoLib.AppBar = AppBar;
 })(RenoLib || (RenoLib = {}));
 //# sourceMappingURL=AppBar.js.map
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var RenoLib;
 (function (RenoLib) {
     var AppTile = (function (_super) {
@@ -1219,11 +1242,16 @@ var RenoLib;
     RenoLib.AppTile = AppTile;
 })(RenoLib || (RenoLib = {}));
 //# sourceMappingURL=AppTile.js.map
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var RenoLib;
 (function (RenoLib) {
     var ShareTarget = (function (_super) {
@@ -1257,11 +1285,16 @@ var RenoLib;
 })(RenoLib || (RenoLib = {}));
 //# sourceMappingURL=ShareTarget.js.map
 // FILE IN PROGRESS
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var RenoLib;
 (function (RenoLib) {
     var Speech = (function (_super) {
@@ -1310,6 +1343,7 @@ var RenoLib;
             }
             //this.recognizer.continuousRecognitionSession.addEventListener('resultgenerated', (args) => this.onSpeechRecognizerResultGenerated(args), false);
             if (!core) {
+                //this.refreshRecognition(true);
             }
             //this.recognizer.addEventListener('statechanged', (args) => this.onSpeechRecognizerStateChanged(args), false);
             // Handle continuous recognition events. Completed fires when various error states occur or the session otherwise ends.
@@ -1453,6 +1487,8 @@ var RenoLib;
             if (eventInfo.detail[0].kind === Windows.ApplicationModel.Activation.ActivationKind.shareTarget) {
                 var shareTarget = this.abilities.find(function (a) { return a.type === RenoLib.ActivityType.ShareTarget; });
                 if (shareTarget) {
+                    //todo: fix
+                    //Windows.UI.Core.CoreDispatcher.call(() => shareTarget.shareReady(eventInfo.detail[0].shareOperation));
                 }
             }
             if (eventInfo.detail[0].kind === Windows.ApplicationModel.Activation.ActivationKind.launch) {
