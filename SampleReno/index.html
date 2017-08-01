@@ -10,6 +10,14 @@
     <!-- Step 2/2: Include the renoloader script (locally or remotely) to inject/load the reno.js/reno.css when running on Windows -->
     <script src="https://galeforce.azurewebsites.net/renoloader.js"></script>
 
+    <style>
+        .bottomCommandBar {
+            height: 200px;
+            width: 100%;
+            background: green;
+        }
+    </style>
+
 </head>
 <body>
     <img id="logo" src="images/Reno.png" width="150" height="150"/>
@@ -19,5 +27,7 @@
     <div>The newly added toolbar should appear below, with share and pinning. The reno/appmap.js file defines anything beyond the default experience.</div>
     <br/>
     <div>For more information, see <a href="https://github.com/JimGaleForce/Reno">Reno on GitHub</a></div>
+
+    <div id="myCommandBar" class="bottomCommandBar"></div>
 </body>
 </html>

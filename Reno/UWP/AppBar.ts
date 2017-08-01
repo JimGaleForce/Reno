@@ -7,6 +7,7 @@
         //commands contain the icons/text/commands to add to the appbar when activated
         commands: any[];
         buttons: AppBarCommand[];
+        elementId: string;
 
         constructor(appBar: any) {
             super();
@@ -19,6 +20,7 @@
 
             this.show = Utils.default(appBar.show, def.appBar.show, true);
             this.commands = Utils.default(appBar.commands, def.appBar.commands, []);
+            this.elementId = Utils.default(appBar.elementId, null);
             if (appBar.commands && appBar.keepDefaultCommands) {
                 for (var i = 0; i < def.appBar.commands.length; i++) {
                     this.commands.splice(i, 0, def.appBar.commands[i]);
@@ -36,7 +38,8 @@
 
         async create() {
             Utils.debug('appBar-creating');
-            var cmdBar = document.createElement('div');
+            var cmdBarPreexists = this.elementId !== null && this.elementId !== '';
+            var cmdBar = cmdBarPreexists ? document.getElementById(this.elementId) : document.createElement('div');
             cmdBar.className = 'reno';
             cmdBar.id = 'commandbar';
             this.buttons = new Array<AppBarCommand>();
@@ -54,20 +57,28 @@
                     Utils.debug('adding new cmd:' + this.commands[i].id);
                     command = new AppBarCommand(this.commands[i]);
                     this.buttons.push(command);
-                    let button = document.createElement('button');
+
+                    let existingButton = document.querySelector("commandbar " + command.id) as HTMLButtonElement;
+
+                    let button = existingButton || document.createElement('button');
                     button.className = 'commandbutton reno';
                     button.textContent = command.icon;
                     button.id = command.id;
                     button.onclick = (sender) => { command.command(sender, command, this, Reno.instance); };
 
-                    cmdBar.appendChild(button);
+                    if (!existingButton) {
+                        cmdBar.appendChild(button);
+                    }
                 } else {
                     Utils.debug('adopting from existing cmd:' + this.commands[i].id);
                     command.adopt(this.commands[i]);
                 }
             }
 
-            document.body.appendChild(cmdBar);
+            if (!cmdBarPreexists) {
+                document.body.appendChild(cmdBar);
+            }
+
             await this.refresh();
         }
 
