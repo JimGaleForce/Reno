@@ -5,6 +5,7 @@
     abilities: {
         appBar: {
             keepDefaultCommands: true,
+            elementId: 'myCommandBar',
             commands: [
                 {
                     id: 'PinCommand',
